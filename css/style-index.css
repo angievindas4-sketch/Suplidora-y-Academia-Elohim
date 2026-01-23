@@ -87,6 +87,103 @@ nav a:hover {
     background-color: #ff66aa;
 }
 
+
+/* ==== Estilo CSS integrado ==== */
+
+/* ===== Slider de Ofertas ======== */
+#ofertas {
+    padding: 30px 20px;
+    background-color: #f8f8f8;
+    text-align: center;
+}
+
+#ofertas h2 {
+    font-size: 2em;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+/* Contenedor del carrusel */
+.slider-ofertas {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+/* Pista que se mueve */
+.slide-track {
+    display: flex;
+    gap: 20px;
+    animation: scroll 20s linear infinite;
+}
+
+/* Animación de scroll */
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Cada oferta */
+.slide {
+    min-width: 250px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.slide:hover {
+    transform: scale(1.05);
+}
+
+.slide img {
+    width: 100%;
+    height: 200px; /* altura uniforme */
+    object-fit: cover; /* recorta para mantener proporción */
+    border-radius: 8px;
+    display: block;
+}
+
+.slide h3 {
+    margin: 10px 0 15px;
+    font-size: 1.1em;
+    color: #333;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .slide {
+        min-width: 200px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .slide {
+        min-width: 150px;
+    }
+}
+
+
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .productos {
+        gap: 15px;
+    }
+    .producto {
+        width: 45%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .producto {
+        width: 90%;
+    }
+}
+
+
 /* ===================================
    Secciones de contacto y ubicación
 =================================== */
