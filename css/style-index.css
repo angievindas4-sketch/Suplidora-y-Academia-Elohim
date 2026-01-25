@@ -173,6 +173,24 @@ nav a:hover {
     cursor: grabbing;
 }
 
+.slider-ofertas {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.slide-track {
+  display: flex;
+  gap: 15px;
+  animation: scroll 40s linear infinite;
+  width: max-content;
+}
+
+.slide {
+  scroll-snap-align: center;
+  flex: 0 0 auto;
+}
+
 
 /* Responsive */
 @media screen and (max-width: 768px) {
