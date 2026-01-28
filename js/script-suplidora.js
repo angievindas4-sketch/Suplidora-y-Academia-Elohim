@@ -175,22 +175,26 @@ document.addEventListener("DOMContentLoaded", () => {
       try { localStorage.setItem('carrito_suplidora', JSON.stringify(carrito)); } catch(e){}
     }
 
-    // Añadir producto (exponer globalmente)
-    window.agregarAlCarrito = function(nombre, precio, qty = 1, abrir = true) {
-      if (!nombre || isNaN(Number(precio))) {
-        console.warn('agregarAlCarrito: nombre o precio inválido', nombre, precio);
-        return;
-      }
-      precio = Number(precio);
-      const exist = carrito.find(it => it.name === nombre);
-      if (exist) exist.qty += qty;
-      else carrito.push({ name: nombre, price: precio, qty: qty });
-      guardar();
-      if (uiPanel) render();
-      playPop();
-      showToast('Agregado: ' + nombre);
-      if (abrir && uiPanel) { setPanelOpen(true); panelCarrito.style.display = 'block'; }
-    };
+
+//------ Agregar producto con marca y estilo----//
+
+window.agregarAlCarrito = function(nombre, precio, marca = '', estilo = '', qty = 1, abrir = true) {
+  if (!nombre || isNaN(Number(precio))) {
+    console.warn('agregarAlCarrito: nombre o precio inválido', nombre, precio);
+    return;
+  }
+  precio = Number(precio);
+  // Buscar si ya existe el mismo producto con la misma marca y estilo
+  const exist = carrito.find(it => it.name === nombre && it.brand === marca && it.style === estilo);
+  if (exist) exist.qty += qty;
+  else carrito.push({ name: nombre, price: precio, brand: marca, style: estilo, qty: qty });
+  guardar();
+  if (uiPanel) render();
+  playPop();
+  showToast(`Agregado: ${nombre} (${marca || 'Marca no indicada'}, ${estilo || 'Estilo no indicado'})`);
+  if (abrir && uiPanel) { setPanelOpen(true); panelCarrito.style.display = 'block'; }
+};
+
 
     window.eliminarDelCarrito = function(index) {
       if (index >= 0 && index < carrito.length) {
@@ -293,19 +297,42 @@ document.addEventListener("DOMContentLoaded", () => {
       showToast('Lista vaciada');
     });
     enviarWhatsAppBtn && enviarWhatsAppBtn.addEventListener('click', () => {
-      if (!carrito.length) { alert('La lista está vacía.'); return; }
-      // construir mensaje
-      const nombreCliente = clienteNombreInput ? (clienteNombreInput.value.trim() || 'No indicado') : 'No indicado';
-      let mensaje = `Hola, soy ${nombreCliente}.\nDeseo comprar:\n\n`;
-      let total = 0;
-      carrito.forEach(it => {
-        mensaje += `• ${it.name} x${it.qty} - ₡${(it.price * it.qty).toLocaleString()}\n`;
-        total += it.price * it.qty;
-      });
-      mensaje += `\nTotal: ₡${total.toLocaleString()}\n\nGracias.`;
-      const url = `https://wa.me/${WA_NUMBER.replace(/^\+/, '')}?text=${encodeURIComponent(mensaje)}`;
-      window.open(url, '_blank');
-    });
+  if (!carrito.length) { 
+    alert('La lista está vacía.'); 
+    return; 
+  }
+
+  // construir mensaje
+  const nombreCliente = clienteNombreInput
+    ? (clienteNombreInput.value.trim() || 'No indicado')
+    : 'No indicado';
+
+  // 👇 OBTENER DESCRIPCIÓN
+  const descripcion = document.getElementById('descripcionPedido')
+    ? document.getElementById('descripcionPedido').value.trim()
+    : '';
+
+  let mensaje = `Hola, soy ${nombreCliente}.\nDeseo comprar:\n\n`;
+  let total = 0;
+
+  carrito.forEach(it => {
+    mensaje += `• ${it.name} x${it.qty} - ₡${(it.price * it.qty).toLocaleString()}\n`;
+    total += it.price * it.qty;
+  });
+
+  mensaje += `\nTotal: ₡${total.toLocaleString()}\n`;
+
+  // 👇 AGREGAR DESCRIPCIÓN SOLO SI EXISTE
+  if (descripcion !== '') {
+    mensaje += `\n📝 Observaciones:\n${descripcion}\n`;
+  }
+
+  mensaje += `\nGracias.`;
+
+  const url = `https://wa.me/${WA_NUMBER.replace(/^\+/, '')}?text=${encodeURIComponent(mensaje)}`;
+  window.open(url, '_blank');
+});
+
 
     // Render inicial
     render();

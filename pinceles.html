@@ -287,14 +287,26 @@
     <div class="carrito-body">
       <ul id="listaCarrito" class="lista-carrito"></ul>
 
-      <div class="carrito-total">
-        <label for="clienteNombre">Nombre (opcional)</label>
-        <input id="clienteNombre" type="text" placeholder="Tu nombre" />
-        <p id="totalCarrito">Total: ₡0</p>
-        <div class="carrito-actions">
-          <button id="vaciarCarrito" class="btn-accion">Vaciar</button>
-          <button id="enviarWhatsApp" class="btn-accion btn-enviar">Enviar por WhatsApp</button>
-        </div>
+     <div class="carrito-total">
+  <label for="clienteNombre">Nombre (opcional)</label>
+  <input id="clienteNombre" type="text" placeholder="Tu nombre" />
+
+  <label for="descripcionPedido">Descripción / Observaciones</label>
+  <textarea 
+    id="descripcionPedido" 
+    placeholder="Escribe aquí alguna observación sobre tu pedido..."
+    rows="3">
+  </textarea>
+
+  <p id="totalCarrito">Total: ₡0</p>
+
+  <div class="carrito-actions">
+    <button id="vaciarCarrito" class="btn-accion">Vaciar</button>
+    <button id="enviarWhatsApp" class="btn-accion btn-enviar">
+      Enviar por WhatsApp
+    </button>
+  </div>
+</div>
       </div>
     </div>
   </div>

@@ -110,6 +110,15 @@ nav a:hover {
     text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
 }
 
+textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  resize: none;
+  font-family: inherit;
+}
+
 .agregar-btn {
     background-color: #67c9cc;
     color: white;

@@ -201,6 +201,15 @@ nav a:hover {
     background: #ff66aa;
 }
 
+textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  resize: none;
+  font-family: inherit;
+}
+
 .contenido-carrito {
     display: none;
     position: absolute;
