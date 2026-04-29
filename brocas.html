@@ -8,89 +8,92 @@
 </head>
 <body>
 
-    <!-- Header -->
     <header>
         <h1>Suplidora de Uñas Elohim</h1>
     </header>
 
-    <!-- Navegación -->
     <nav>
         <a href="suplidora.html">Regresar a las categorías del catálogo</a>
     </nav>
 
-    <!-- Título de la categoría -->
     <div class="titulo-catalogo-container">
         <h2 class="bienvenida">Brocas</h2>
     </div>
 
-    <!-- Panel de productos -->
     <div class="panel show">
         <div class="productos-grid">
 
-            <!-- Producto 1 -->
             <div class="producto">
                 <img src="img/color rosado claro.jpg" alt="Set de Brocas" onclick="abrirModal(this.src)">
                 <p class="nombre-producto-texto">Set de Brocas</p>
-                <p class="precio-producto">₡11.000</p>
+                <p class="precio-producto">₡11,000</p>
                 <button class="agregar-btn" onclick="agregarAlCarrito('Set de Brocas', 11000)">Agregar a lista</button>
             </div>
-
-            <!-- Puedes copiar y pegar más productos aquí -->
 
         </div>
     </div>
 
     <!-- Modal de imagen -->
     <div id="modalImagen">
-        <img src="" alt="Producto">
-    </div>
- <!-- ===== Carrito flotante (pegar antes del </body>) ===== -->
-<div class="carrito-flotante" id="carritoFlotante">
-  <button id="btnCarrito" class="btn-carrito" aria-label="Abrir carrito">🛒</button>
-
-  <div class="panel-carrito" id="panelCarrito" role="dialog" aria-hidden="true">
-    <div class="carrito-header">
-      <h3>Tu lista</h3>
-      <button id="cerrarCarrito" class="cerrar">✕</button>
+        <img id="img-modal" src="" alt="Producto">
     </div>
 
-    <div class="carrito-body">
-      <ul id="listaCarrito" class="lista-carrito"></ul>
-
-     <div class="carrito-total">
-  <label for="clienteNombre">Nombre (opcional)</label>
-  <input id="clienteNombre" type="text" placeholder="Tu nombre" />
-
-  <label for="descripcionPedido">Descripción / Observaciones</label>
-  <textarea 
-    id="descripcionPedido" 
-    placeholder="Escribe aquí alguna observación sobre tu pedido..."
-    rows="3">
-  </textarea>
-
-  <p id="totalCarrito">Total: ₡0</p>
-
-  <div class="carrito-actions">
-    <button id="vaciarCarrito" class="btn-accion">Vaciar</button>
-    <button id="enviarWhatsApp" class="btn-accion btn-enviar">
-      Enviar por WhatsApp
-    </button>
-  </div>
-</div>
-      </div>
+    <!-- Carrito flotante -->
+    <div class="carrito-flotante" id="carritoFlotante">
+        <button id="btnCarrito" class="btn-carrito" aria-label="Abrir carrito">🛒</button>
+        <div class="panel-carrito" id="panelCarrito" role="dialog" aria-hidden="true">
+            <div class="carrito-header">
+                <h3>Tu lista</h3>
+                <button id="cerrarCarrito" class="cerrar">✕</button>
+            </div>
+            <div class="carrito-body">
+                <ul id="listaCarrito" class="lista-carrito"></ul>
+                <div class="carrito-total">
+                    <label for="clienteNombre">Nombre (opcional)</label>
+                    <input id="clienteNombre" type="text" placeholder="Tu nombre" />
+                    <label for="descripcionPedido">Descripción / Observaciones</label>
+                    <textarea id="descripcionPedido" placeholder="Escribe aquí alguna observación sobre tu pedido..." rows="3"></textarea>
+                    <p id="totalCarrito">Total: ₡0</p>
+                    <div class="carrito-actions">
+                        <button id="vaciarCarrito" class="btn-accion">Vaciar</button>
+                        <button id="enviarWhatsApp" class="btn-accion btn-enviar">Enviar por WhatsApp</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-<!-- Toast notificaciones -->
-<div id="toastCarrito" class="toast" aria-live="polite"></div>
+    <!-- Toast notificaciones -->
+    <div id="toastCarrito" class="toast" aria-live="polite"></div>
 
-    <!-- Footer -->
     <footer>
         <p id="footer-text">By Freelancer Anyelith Nuñez Vindas &copy; <span id="anio"></span></p>
     </footer>
 
-    <!-- Script global -->
+    <script>
+        document.getElementById("anio").textContent = new Date().getFullYear();
+
+        const modalImgContainer = document.getElementById('modalImagen');
+        const modalImg = document.getElementById('img-modal');
+        let ultimaSrc = "";
+
+        function abrirModal(src) {
+            if (modalImgContainer.classList.contains('show') && ultimaSrc === src) {
+                modalImgContainer.classList.remove('show');
+                ultimaSrc = "";
+            } else {
+                modalImg.src = src;
+                modalImgContainer.classList.add('show');
+                ultimaSrc = src;
+            }
+        }
+
+        modalImg.addEventListener('click', () => {
+            modalImgContainer.classList.remove('show');
+            ultimaSrc = "";
+        });
+    </script>
+
     <script src="js/script-suplidora.js"></script>
 
 </body>
