@@ -116,13 +116,11 @@ document.addEventListener("DOMContentLoaded", () => {
   function setPanelOpen(open) {
     panelOpen = !!open;
     panelCarrito.setAttribute('aria-hidden', String(!open));
-    if (open) panelCarrito.setAttribute('aria-hidden','false');
-    else panelCarrito.setAttribute('aria-hidden','true');
+    panelCarrito.style.display = open ? 'block' : '';
   }
 
   btnCarrito.addEventListener('click', () => {
     setPanelOpen(!panelOpen);
-    panelCarrito.style.display = panelOpen ? 'block' : '';
   });
   cerrarCarrito && cerrarCarrito.addEventListener('click', () => setPanelOpen(false));
   // click fuera del panel cierra (opcional)
@@ -192,7 +190,7 @@ window.agregarAlCarrito = function(nombre, precio, marca = '', estilo = '', qty 
   if (uiPanel) render();
   playPop();
   showToast(`Agregado: ${nombre} (${marca || 'Marca no indicada'}, ${estilo || 'Estilo no indicado'})`);
-  if (abrir && uiPanel) { setPanelOpen(true); panelCarrito.style.display = 'block'; }
+  if (abrir && uiPanel) { setPanelOpen(true); }
 };
 
 
