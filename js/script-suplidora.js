@@ -92,8 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /* -----------------------
      C A R R I T O
   ----------------------- */
-  const WA_NUMBER = "+50671256012"; // número final
-  // Elementos del DOM del carrito (puede no existir en algunas páginas)
+  const WA_NUMBER = "+50671256012";
   const panelCarrito = document.getElementById('panelCarrito');
   const btnCarrito = document.getElementById('btnCarrito');
   const cerrarCarrito = document.getElementById('cerrarCarrito');
@@ -104,14 +103,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const clienteNombreInput = document.getElementById('clienteNombre');
   const toast = document.getElementById('toastCarrito');
 
-  // Seguridad: si no hay panelCarrito, no inicializamos carrito visual (pero funciones siguen disponibles)
   if (!panelCarrito || !btnCarrito) {
-    // init carrito logic without UI not needed; but functions will still work if invoked programmatically
     initCartLogic(null);
     return;
   }
 
-  // Mostrar/ocultar panel
   let panelOpen = false;
   function setPanelOpen(open) {
     panelOpen = !!open;
@@ -123,7 +119,6 @@ document.addEventListener("DOMContentLoaded", () => {
     setPanelOpen(!panelOpen);
   });
   cerrarCarrito && cerrarCarrito.addEventListener('click', () => setPanelOpen(false));
-  // click fuera del panel cierra (opcional)
   document.addEventListener('click', (e) => {
     if (!panelOpen) return;
     const inside = panelCarrito.contains(e.target) || btnCarrito.contains(e.target);
@@ -155,44 +150,36 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => toast.classList.remove('show'), ms);
   }
 
-  // Inicia la lógica del carrito (backup compartible)
   initCartLogic(panelCarrito);
 
   function initCartLogic(uiPanel) {
-    // carrito estructura: [{name, price, qty}]
     let carrito = [];
 
-    // cargar
     try {
       const saved = localStorage.getItem('carrito_suplidora');
       carrito = saved ? JSON.parse(saved) : [];
     } catch (e) { carrito = []; }
 
-    // Guardar
     function guardar() {
       try { localStorage.setItem('carrito_suplidora', JSON.stringify(carrito)); } catch(e){}
     }
 
-
-//------ Agregar producto con marca y estilo----//
-
-window.agregarAlCarrito = function(nombre, precio, marca = '', estilo = '', qty = 1, abrir = true) {
-  if (!nombre || isNaN(Number(precio))) {
-    console.warn('agregarAlCarrito: nombre o precio inválido', nombre, precio);
-    return;
-  }
-  precio = Number(precio);
-  // Buscar si ya existe el mismo producto con la misma marca y estilo
-  const exist = carrito.find(it => it.name === nombre && it.brand === marca && it.style === estilo);
-  if (exist) exist.qty += qty;
-  else carrito.push({ name: nombre, price: precio, brand: marca, style: estilo, qty: qty });
-  guardar();
-  if (uiPanel) render();
-  playPop();
-  showToast(`Agregado: ${nombre} (${marca || 'Marca no indicada'}, ${estilo || 'Estilo no indicado'})`);
-  if (abrir && uiPanel) { setPanelOpen(true); }
-};
-
+    //------ Agregar producto con marca y estilo----//
+    window.agregarAlCarrito = function(nombre, precio, marca = '', estilo = '', qty = 1, abrir = true) {
+      if (!nombre || isNaN(Number(precio))) {
+        console.warn('agregarAlCarrito: nombre o precio inválido', nombre, precio);
+        return;
+      }
+      precio = Number(precio);
+      const exist = carrito.find(it => it.name === nombre && it.brand === marca && it.style === estilo);
+      if (exist) exist.qty += qty;
+      else carrito.push({ name: nombre, price: precio, brand: marca, style: estilo, qty: qty });
+      guardar();
+      if (uiPanel) render();
+      playPop();
+      showToast(`Agregado: ${nombre} (${marca || 'Marca no indicada'}, ${estilo || 'Estilo no indicado'})`);
+      if (abrir && uiPanel) { setPanelOpen(true); }
+    };
 
     window.eliminarDelCarrito = function(index) {
       if (index >= 0 && index < carrito.length) {
@@ -219,7 +206,7 @@ window.agregarAlCarrito = function(nombre, precio, marca = '', estilo = '', qty 
     };
 
     window.obtenerCarrito = function() {
-      return carrito.slice(); // copia
+      return carrito.slice();
     };
 
     // Render al DOM
@@ -289,48 +276,53 @@ window.agregarAlCarrito = function(nombre, precio, marca = '', estilo = '', qty 
     }
 
     // Botones UI
+    // ✅ CORREGIDO: eliminado confirm() que bloqueaba en móviles
     vaciarCarritoBtn && vaciarCarritoBtn.addEventListener('click', () => {
-      if (!confirm('¿Vaciar la lista?')) return;
       vaciarCarrito();
       showToast('Lista vaciada');
     });
+
     enviarWhatsAppBtn && enviarWhatsAppBtn.addEventListener('click', () => {
-  if (!carrito.length) { 
-    alert('La lista está vacía.'); 
-    return; 
-  }
+      if (!carrito.length) {
+        showToast('La lista está vacía.');
+        return;
+      }
 
-  // construir mensaje
-  const nombreCliente = clienteNombreInput
-    ? (clienteNombreInput.value.trim() || 'No indicado')
-    : 'No indicado';
+      const nombreCliente = clienteNombreInput
+        ? (clienteNombreInput.value.trim() || 'No indicado')
+        : 'No indicado';
 
-  // 👇 OBTENER DESCRIPCIÓN
-  const descripcion = document.getElementById('descripcionPedido')
-    ? document.getElementById('descripcionPedido').value.trim()
-    : '';
+      const descripcion = document.getElementById('descripcionPedido')
+        ? document.getElementById('descripcionPedido').value.trim()
+        : '';
 
-  let mensaje = `Hola, soy ${nombreCliente}.\nDeseo comprar:\n\n`;
-  let total = 0;
+      let mensaje = `Hola, soy ${nombreCliente}.\nDeseo comprar:\n\n`;
+      let total = 0;
 
-  carrito.forEach(it => {
-    mensaje += `• ${it.name} x${it.qty} - ₡${(it.price * it.qty).toLocaleString()}\n`;
-    total += it.price * it.qty;
-  });
+      carrito.forEach(it => {
+        mensaje += `• ${it.name} x${it.qty} - ₡${(it.price * it.qty).toLocaleString()}\n`;
+        total += it.price * it.qty;
+      });
 
-  mensaje += `\nTotal: ₡${total.toLocaleString()}\n`;
+      mensaje += `\nTotal: ₡${total.toLocaleString()}\n`;
 
-  // 👇 AGREGAR DESCRIPCIÓN SOLO SI EXISTE
-  if (descripcion !== '') {
-    mensaje += `\n📝 Observaciones:\n${descripcion}\n`;
-  }
+      if (descripcion !== '') {
+        mensaje += `\n📝 Observaciones:\n${descripcion}\n`;
+      }
 
-  mensaje += `\nGracias.`;
+      mensaje += `\nGracias.`;
 
-  const url = `https://wa.me/${WA_NUMBER.replace(/^\+/, '')}?text=${encodeURIComponent(mensaje)}`;
-  window.open(url, '_blank');
-});
+      const url = `https://wa.me/${WA_NUMBER.replace(/^\+/, '')}?text=${encodeURIComponent(mensaje)}`;
 
+      // ✅ CORREGIDO: enlace directo en lugar de window.open() que bloqueaba en móviles
+      const a = document.createElement('a');
+      a.href = url;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    });
 
     // Render inicial
     render();
