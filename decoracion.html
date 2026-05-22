@@ -77,7 +77,7 @@
                <img src="img/DECORACION/DECO COLA SIRE PEQUE - 3000.jpg" alt="" onclick="abrirModal(this.src)">
                <p class="nombre-producto-texto">Cola Sirena Pequeña</p>
                <p class="precio-producto">₡3,000</p>
-               <button class="agregar-btn" onclick="agregarAlCarrito('Balines', 3000)">Agregar a lista</button>
+               <button class="agregar-btn" onclick="agregarAlCarrito('Cola Sirena Pequeña', 3000)">Agregar a lista</button>
             </div>
              <div class="producto">
                <img src="img/DECORACION/DECO CON FLORES Y PEDRERIA - 2000.jpg" alt="" onclick="abrirModal(this.src)">
@@ -107,7 +107,7 @@
                <img src="img/DECORACION/DECO HOJA ORO 2000.jpg" alt="" onclick="abrirModal(this.src)">
                <p class="nombre-producto-texto">Hoja de Oro</p>
                <p class="precio-producto">₡2,000</p>
-               <button class="agregar-btn" onclick="agregarAlCarrito('Balines', 2000)">Agregar a lista</button>
+               <button class="agregar-btn" onclick="agregarAlCarrito('Hoja de Oro', 2000)">Agregar a lista</button>
             </div>
             <div class="producto">
                <img src="img/DECORACION/DECO LAZOS 1500.jpg" alt="" onclick="abrirModal(this.src)">
@@ -119,7 +119,7 @@
                <img src="img/DECORACION/DECO NATU MUERTA 2500.jpg" alt="" onclick="abrirModal(this.src)">
                <p class="nombre-producto-texto">Naturaleza Muerta</p>
                <p class="precio-producto">₡2,500</p>
-               <button class="agregar-btn" onclick="agregarAlCarrito('Naturaleza Muerta', 2,500)">Agregar a lista</button>
+               <button class="agregar-btn" onclick="agregarAlCarrito('Naturaleza Muerta', 2500)">Agregar a lista</button>
             </div>
             <div class="producto">
                <img src="img/DECORACION/DECO ROJA CORA 2500.jpg" alt="" onclick="abrirModal(this.src)">
@@ -193,69 +193,55 @@
                <p class="precio-producto">₡2,000</p>
                <button class="agregar-btn" onclick="agregarAlCarrito('Efecto Suggar Neutros', 2000)">Agregar a lista</button>
             </div>
-                        <!-- Agrega más productos aquí -->
-                    </div>
-                </div>
-            </div>
-        </div>
-            </p>
         </div>
     </div>
 
     <!-- Modal de imagen -->
-<div id="modalImagen">
-    <img id="img-modal" src="" alt="Producto">
-</div>
- <!-- ===== Carrito flotante (pegar antes del </body>) ===== -->
-<div class="carrito-flotante" id="carritoFlotante">
-  <button id="btnCarrito" class="btn-carrito" aria-label="Abrir carrito">🛒</button>
-
-  <div class="panel-carrito" id="panelCarrito" role="dialog" aria-hidden="true">
-    <div class="carrito-header">
-      <h3>Tu lista</h3>
-      <button id="cerrarCarrito" class="cerrar">✕</button>
+    <div id="modalImagen">
+        <img id="img-modal" src="" alt="Producto">
     </div>
 
-    <div class="carrito-body">
-      <ul id="listaCarrito" class="lista-carrito"></ul>
-
-     <div class="carrito-total">
-  <label for="clienteNombre">Nombre (opcional)</label>
-  <input id="clienteNombre" type="text" placeholder="Tu nombre" />
-
-  <label for="descripcionPedido">Descripción / Observaciones</label>
-  <textarea 
-    id="descripcionPedido" 
-    placeholder="Escribe aquí alguna observación sobre tu pedido..."
-    rows="3">
-  </textarea>
-
-  <p id="totalCarrito">Total: ₡0</p>
-
-  <div class="carrito-actions">
-    <button id="vaciarCarrito" class="btn-accion">Vaciar</button>
-    <button id="enviarWhatsApp" class="btn-accion btn-enviar">
-      Enviar por WhatsApp
-    </button>
-  </div>
-</div>
+    <!-- ===== Carrito flotante ===== -->
+    <div class="carrito-flotante" id="carritoFlotante">
+      <button id="btnCarrito" class="btn-carrito" aria-label="Abrir carrito">🛒</button>
+      <div class="panel-carrito" id="panelCarrito" role="dialog" aria-hidden="true">
+        <div class="carrito-header">
+          <h3>Tu lista</h3>
+          <button id="cerrarCarrito" class="cerrar">✕</button>
+        </div>
+        <div class="carrito-body">
+          <ul id="listaCarrito" class="lista-carrito"></ul>
+          <div class="carrito-total">
+            <label for="clienteNombre">Nombre (opcional)</label>
+            <input id="clienteNombre" type="text" placeholder="Tu nombre" />
+            <label for="descripcionPedido">Descripción / Observaciones</label>
+            <textarea 
+              id="descripcionPedido" 
+              placeholder="Escribe aquí alguna observación sobre tu pedido..."
+              rows="3">
+            </textarea>
+            <p id="totalCarrito">Total: ₡0</p>
+            <div class="carrito-actions">
+              <button id="vaciarCarrito" class="btn-accion">Vaciar</button>
+              <button id="enviarWhatsApp" class="btn-accion btn-enviar">
+                Enviar por WhatsApp
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- Toast notificaciones -->
-<div id="toastCarrito" class="toast" aria-live="polite"></div>
+    <!-- Toast notificaciones -->
+    <div id="toastCarrito" class="toast" aria-live="polite"></div>
 
     <!-- Footer -->
     <footer>
       <p id="footer-text">By Freelancer Anyelith Nuñez Vindas &copy; <span id="anio"></span></p> 
     </footer>
 
-
-
-<!-- Script global -->
-<script src="js/script-suplidora.js"></script>
+    <!-- Script global -->
+    <script src="js/script-suplidora.js"></script>
 
 </body>
 </html>

@@ -123,30 +123,6 @@
         <p id="footer-text">By Freelancer Anyelith Nuñez Vindas &copy; <span id="anio"></span></p>
     </footer>
 
-    <script>
-        document.getElementById("anio").textContent = new Date().getFullYear();
-
-        const modalImgContainer = document.getElementById('modalImagen');
-        const modalImg = document.getElementById('img-modal');
-        let ultimaSrc = "";
-
-        function abrirModal(src) {
-            if (modalImgContainer.classList.contains('show') && ultimaSrc === src) {
-                modalImgContainer.classList.remove('show');
-                ultimaSrc = "";
-            } else {
-                modalImg.src = src;
-                modalImgContainer.classList.add('show');
-                ultimaSrc = src;
-            }
-        }
-
-        modalImg.addEventListener('click', () => {
-            modalImgContainer.classList.remove('show');
-            ultimaSrc = "";
-        });
-    </script>
-
     <script src="js/script-suplidora.js"></script>
 
 </body>
