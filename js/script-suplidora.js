@@ -1,62 +1,7 @@
 // ==========================
-// Acordeón categorías
-// ==========================
-const acordeones = document.querySelectorAll(".acordeon");
-
-acordeones.forEach(btn => {
-    btn.addEventListener("click", function() {
-        const panel = this.nextElementSibling;
-        const openPanel = document.querySelector(".panel:not([style*='display: none'])");
-
-        if (openPanel && openPanel !== panel) {
-            openPanel.style.display = "none";
-        }
-
-        panel.style.display = (panel.style.display === "block") ? "none" : "block";
-    });
-});
-
-// ==========================
 // Modal toggle con zoom
 // ==========================
-const modal = document.getElementById('modalImagen');
-const modalImg = modal.querySelector('img'); 
-let ultimaSrc = "";
-
-function abrirModal(src) {
-    if (modal.classList.contains('show') && ultimaSrc === src) {
-        modal.classList.remove('show');
-        ultimaSrc = "";
-    } else {
-        modalImg.src = src;
-        modal.classList.add('show');
-        ultimaSrc = src;
-    }
-}
-
-modalImg.addEventListener('click', () => {
-    modal.classList.remove('show');
-    ultimaSrc = "";
-});
-
-// ==========================
-// script-suplidora.js
-// Acordeón + Modal + Carrito centralizado
-// ==========================
 document.addEventListener("DOMContentLoaded", () => {
-
-  /* -----------------------
-     A C O R D E Ó N
-  ----------------------- */
-  const acordeones = document.querySelectorAll(".acordeon");
-  acordeones.forEach(btn => {
-    btn.addEventListener("click", function() {
-      const panel = this.nextElementSibling;
-      const openPanel = document.querySelector(".panel:not([style*='display: none'])");
-      if (openPanel && openPanel !== panel) openPanel.style.display = "none";
-      panel.style.display = (panel.style.display === "block") ? "none" : "block";
-    });
-  });
 
   /* -----------------------
      M O D A L  I M A G E N
@@ -76,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ultimaSrc = src;
     }
   };
+
   if (modalImg) {
     modalImg.addEventListener('click', () => {
       modalContainer.classList.remove('show');
@@ -93,6 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
      C A R R I T O
   ----------------------- */
   const WA_NUMBER = "+50671256012";
+  const SINPE_NUMBER = "89944774";
+  const SINPE_NOMBRE = "Noelia Prado Hernandez";
+
   const panelCarrito = document.getElementById('panelCarrito');
   const btnCarrito = document.getElementById('btnCarrito');
   const cerrarCarrito = document.getElementById('cerrarCarrito');
@@ -103,39 +52,45 @@ document.addEventListener("DOMContentLoaded", () => {
   const clienteNombreInput = document.getElementById('clienteNombre');
   const toast = document.getElementById('toastCarrito');
 
-  if (!panelCarrito || !btnCarrito) {
-    initCartLogic(null);
-    return;
+  if (!panelCarrito || !btnCarrito) return;
+
+  // ✅ SIMPLE: solo display block/none, sin animaciones
+  function abrirPanel() {
+    panelCarrito.style.display = 'block';
   }
 
-  let panelOpen = false;
-
-  // ✅ CORREGIDO: usa aria-hidden Y display juntos
-  function setPanelOpen(open) {
-    panelOpen = !!open;
-    panelCarrito.setAttribute('aria-hidden', String(!open));
-    panelCarrito.style.display = open ? 'block' : 'none';
+  function cerrarPanel() {
+    panelCarrito.style.display = 'none';
   }
 
-  btnCarrito.addEventListener('click', (e) => {
+  // Iniciar cerrado
+  cerrarPanel();
+
+  btnCarrito.addEventListener('click', function(e) {
     e.stopPropagation();
-    setPanelOpen(!panelOpen);
+    if (panelCarrito.style.display === 'block') {
+      cerrarPanel();
+    } else {
+      abrirPanel();
+    }
   });
 
-  cerrarCarrito && cerrarCarrito.addEventListener('click', (e) => {
-    e.stopPropagation();
-    setPanelOpen(false);
-  });
+  if (cerrarCarrito) {
+    cerrarCarrito.addEventListener('click', function(e) {
+      e.stopPropagation();
+      cerrarPanel();
+    });
+  }
 
-  panelCarrito.addEventListener('click', (e) => {
-    e.stopPropagation();
-  });
+  // Toast notificaciones
+  function showToast(msg, ms = 1400) {
+    if (!toast) return;
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), ms);
+  }
 
-  document.addEventListener('click', () => {
-    if (panelOpen) setPanelOpen(false);
-  });
-
-  // Sonido pop con WebAudio
+  // Sonido pop
   function playPop() {
     try {
       const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -149,156 +104,126 @@ document.addEventListener("DOMContentLoaded", () => {
       g.gain.exponentialRampToValueAtTime(0.12, ctx.currentTime + 0.01);
       g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.18);
       o.stop(ctx.currentTime + 0.2);
-    } catch (e) { /* no audio */ }
+    } catch (e) {}
   }
 
-  // Toast notificaciones
-  function showToast(msg, ms = 1400) {
-    if (!toast) return;
-    toast.textContent = msg;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), ms);
+  /* -----------------------
+     L Ó G I C A  C A R R I T O
+  ----------------------- */
+  let carrito = [];
+
+  try {
+    const saved = localStorage.getItem('carrito_suplidora');
+    carrito = saved ? JSON.parse(saved) : [];
+  } catch (e) { carrito = []; }
+
+  function guardar() {
+    try { localStorage.setItem('carrito_suplidora', JSON.stringify(carrito)); } catch(e){}
   }
 
-  initCartLogic(panelCarrito);
+  function render() {
+    if (!listaCarritoEl) return;
+    listaCarritoEl.innerHTML = '';
+    let total = 0;
 
-  function initCartLogic(uiPanel) {
-    let carrito = [];
+    carrito.forEach((item, idx) => {
+      total += item.price * item.qty;
+      const li = document.createElement('li');
+      li.className = 'item-carrito';
 
-    try {
-      const saved = localStorage.getItem('carrito_suplidora');
-      carrito = saved ? JSON.parse(saved) : [];
-    } catch (e) { carrito = []; }
+      const nombre = document.createElement('div');
+      nombre.className = 'nombre';
+      nombre.textContent = item.name;
 
-    function guardar() {
-      try { localStorage.setItem('carrito_suplidora', JSON.stringify(carrito)); } catch(e){}
-    }
+      const precio = document.createElement('div');
+      precio.className = 'precio';
+      precio.textContent = `₡${(item.price * item.qty).toLocaleString()}`;
 
-    //------ Agregar producto con marca y estilo----//
-    window.agregarAlCarrito = function(nombre, precio, marca = '', estilo = '', qty = 1, abrir = true) {
-      if (!nombre || isNaN(Number(precio))) {
-        console.warn('agregarAlCarrito: nombre o precio inválido', nombre, precio);
-        return;
-      }
-      precio = Number(precio);
-      const exist = carrito.find(it => it.name === nombre && it.brand === marca && it.style === estilo);
-      if (exist) exist.qty += qty;
-      else carrito.push({ name: nombre, price: precio, brand: marca, style: estilo, qty: qty });
-      guardar();
-      if (uiPanel) render();
-      playPop();
-      showToast(`Agregado: ${nombre} (${marca || 'Marca no indicada'}, ${estilo || 'Estilo no indicado'})`);
-      if (abrir && uiPanel) { setPanelOpen(true); }
-    };
+      const qtyWrapper = document.createElement('div');
+      qtyWrapper.className = 'qty-control';
 
-    window.eliminarDelCarrito = function(index) {
-      if (index >= 0 && index < carrito.length) {
-        carrito.splice(index, 1);
-        guardar();
-        if (uiPanel) render();
-      }
-    };
+      const btnMinus = document.createElement('button');
+      btnMinus.className = 'qty-btn';
+      btnMinus.textContent = '-';
+      btnMinus.onclick = function() { cambiarCantidad(idx, item.qty - 1); };
 
-    window.cambiarCantidad = function(index, qty) {
-      qty = Number(qty) || 0;
-      if (index >= 0 && index < carrito.length) {
-        if (qty <= 0) carrito.splice(index,1);
-        else carrito[index].qty = qty;
-        guardar();
-        if (uiPanel) render();
-      }
-    };
+      const inputQty = document.createElement('input');
+      inputQty.className = 'qty-input';
+      inputQty.type = 'number';
+      inputQty.min = '1';
+      inputQty.value = item.qty;
+      inputQty.onchange = function() {
+        cambiarCantidad(idx, parseInt(this.value) || 1);
+      };
 
-    window.vaciarCarrito = function() {
-      carrito = [];
-      guardar();
-      if (uiPanel) render();
-    };
+      const btnPlus = document.createElement('button');
+      btnPlus.className = 'qty-btn';
+      btnPlus.textContent = '+';
+      btnPlus.onclick = function() { cambiarCantidad(idx, item.qty + 1); };
 
-    window.obtenerCarrito = function() {
-      return carrito.slice();
-    };
+      const btnRemove = document.createElement('button');
+      btnRemove.className = 'qty-btn';
+      btnRemove.textContent = 'X';
+      btnRemove.onclick = function() { eliminarDelCarrito(idx); };
 
-    // Render al DOM
-    function render() {
-      if (!listaCarritoEl) return;
-      listaCarritoEl.innerHTML = '';
-      let total = 0;
-      carrito.forEach((item, idx) => {
-        total += item.price * item.qty;
-        const li = document.createElement('li');
-        li.className = 'item-carrito';
+      qtyWrapper.appendChild(btnMinus);
+      qtyWrapper.appendChild(inputQty);
+      qtyWrapper.appendChild(btnPlus);
+      qtyWrapper.appendChild(btnRemove);
 
-        const nombre = document.createElement('div');
-        nombre.className = 'nombre';
-        nombre.textContent = item.name;
-
-        const precio = document.createElement('div');
-        precio.className = 'precio';
-        precio.textContent = `₡${(item.price * item.qty).toLocaleString()}`;
-
-        const qtyWrapper = document.createElement('div');
-        qtyWrapper.className = 'qty-control';
-
-        const btnMinus = document.createElement('button');
-        btnMinus.className = 'qty-btn';
-        btnMinus.textContent = '-';
-        btnMinus.addEventListener('click', (e) => {
-          e.stopPropagation();
-          cambiarCantidad(idx, item.qty - 1);
-        });
-
-        const inputQty = document.createElement('input');
-        inputQty.className = 'qty-input';
-        inputQty.type = 'number';
-        inputQty.min = '1';
-        inputQty.value = item.qty;
-        inputQty.addEventListener('change', (e) => {
-          const v = parseInt(e.target.value) || 1;
-          cambiarCantidad(idx, v);
-        });
-
-        const btnPlus = document.createElement('button');
-        btnPlus.className = 'qty-btn';
-        btnPlus.textContent = '+';
-        btnPlus.addEventListener('click', (e) => {
-          e.stopPropagation();
-          cambiarCantidad(idx, item.qty + 1);
-        });
-
-        const btnRemove = document.createElement('button');
-        btnRemove.className = 'qty-btn';
-        btnRemove.textContent = 'X';
-        btnRemove.title = 'Eliminar';
-        btnRemove.addEventListener('click', (e) => {
-          e.stopPropagation();
-          eliminarDelCarrito(idx);
-        });
-
-        qtyWrapper.appendChild(btnMinus);
-        qtyWrapper.appendChild(inputQty);
-        qtyWrapper.appendChild(btnPlus);
-        qtyWrapper.appendChild(btnRemove);
-
-        li.appendChild(nombre);
-        li.appendChild(qtyWrapper);
-        li.appendChild(precio);
-
-        listaCarritoEl.appendChild(li);
-      });
-
-      if (totalCarritoEl) totalCarritoEl.textContent = `Total: ₡${total.toLocaleString()}`;
-    }
-
-    // Botones UI
-    vaciarCarritoBtn && vaciarCarritoBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      vaciarCarrito();
-      showToast('Lista vaciada');
+      li.appendChild(nombre);
+      li.appendChild(qtyWrapper);
+      li.appendChild(precio);
+      listaCarritoEl.appendChild(li);
     });
 
-    enviarWhatsAppBtn && enviarWhatsAppBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
+    if (totalCarritoEl) totalCarritoEl.textContent = `Total: ₡${total.toLocaleString()}`;
+  }
+
+  window.agregarAlCarrito = function(nombre, precio, marca = '', estilo = '', qty = 1) {
+    if (!nombre || isNaN(Number(precio))) return;
+    precio = Number(precio);
+    const exist = carrito.find(it => it.name === nombre && it.brand === marca && it.style === estilo);
+    if (exist) exist.qty += qty;
+    else carrito.push({ name: nombre, price: precio, brand: marca, style: estilo, qty: qty });
+    guardar();
+    render();
+    playPop();
+    showToast(`✅ Agregado: ${nombre}`);
+    abrirPanel();
+  };
+
+  window.eliminarDelCarrito = function(index) {
+    if (index >= 0 && index < carrito.length) {
+      carrito.splice(index, 1);
+      guardar();
+      render();
+    }
+  };
+
+  window.cambiarCantidad = function(index, qty) {
+    qty = Number(qty) || 0;
+    if (index >= 0 && index < carrito.length) {
+      if (qty <= 0) carrito.splice(index, 1);
+      else carrito[index].qty = qty;
+      guardar();
+      render();
+    }
+  };
+
+  // ✅ VACIAR — onclick directo
+  if (vaciarCarritoBtn) {
+    vaciarCarritoBtn.onclick = function() {
+      carrito = [];
+      guardar();
+      render();
+      showToast('🗑️ Lista vaciada');
+    };
+  }
+
+  // ✅ WHATSAPP — onclick directo
+  if (enviarWhatsAppBtn) {
+    enviarWhatsAppBtn.onclick = function() {
       if (!carrito.length) {
         showToast('La lista está vacía.');
         return;
@@ -321,6 +246,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       mensaje += `\nTotal: ₡${total.toLocaleString()}\n`;
+      mensaje += `\n💳 SINPE Móvil: ${SINPE_NUMBER} (${SINPE_NOMBRE})\n`;
 
       if (descripcion !== '') {
         mensaje += `\n📝 Observaciones:\n${descripcion}\n`;
@@ -330,10 +256,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const url = `https://wa.me/${WA_NUMBER.replace(/^\+/, '')}?text=${encodeURIComponent(mensaje)}`;
       window.open(url, '_blank');
-    });
+    };
+  }
 
-    // Render inicial
-    render();
-  } // fin initCartLogic
+  // Render inicial
+  render();
 
 }); // fin DOMContentLoaded
