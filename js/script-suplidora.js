@@ -109,20 +109,30 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   let panelOpen = false;
+
+  // ✅ CORREGIDO: solo usa aria-hidden, sin style.display para evitar conflictos en móvil
   function setPanelOpen(open) {
     panelOpen = !!open;
     panelCarrito.setAttribute('aria-hidden', String(!open));
-    panelCarrito.style.display = open ? 'block' : '';
   }
 
-  btnCarrito.addEventListener('click', () => {
+  btnCarrito.addEventListener('click', (e) => {
+    e.stopPropagation();
     setPanelOpen(!panelOpen);
   });
-  cerrarCarrito && cerrarCarrito.addEventListener('click', () => setPanelOpen(false));
-  document.addEventListener('click', (e) => {
-    if (!panelOpen) return;
-    const inside = panelCarrito.contains(e.target) || btnCarrito.contains(e.target);
-    if (!inside) setPanelOpen(false);
+
+  cerrarCarrito && cerrarCarrito.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setPanelOpen(false);
+  });
+
+  // ✅ CORREGIDO: stopPropagation en el panel para que clics internos no cierren
+  panelCarrito.addEventListener('click', (e) => {
+    e.stopPropagation();
+  });
+
+  document.addEventListener('click', () => {
+    if (panelOpen) setPanelOpen(false);
   });
 
   // Sonido pop con WebAudio
@@ -233,7 +243,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const btnMinus = document.createElement('button');
         btnMinus.className = 'qty-btn';
         btnMinus.textContent = '-';
-        btnMinus.addEventListener('click', () => {
+        btnMinus.addEventListener('click', (e) => {
+          e.stopPropagation();
           cambiarCantidad(idx, item.qty - 1);
         });
 
@@ -250,7 +261,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const btnPlus = document.createElement('button');
         btnPlus.className = 'qty-btn';
         btnPlus.textContent = '+';
-        btnPlus.addEventListener('click', () => {
+        btnPlus.addEventListener('click', (e) => {
+          e.stopPropagation();
           cambiarCantidad(idx, item.qty + 1);
         });
 
@@ -258,7 +270,10 @@ document.addEventListener("DOMContentLoaded", () => {
         btnRemove.className = 'qty-btn';
         btnRemove.textContent = 'X';
         btnRemove.title = 'Eliminar';
-        btnRemove.addEventListener('click', () => eliminarDelCarrito(idx));
+        btnRemove.addEventListener('click', (e) => {
+          e.stopPropagation();
+          eliminarDelCarrito(idx);
+        });
 
         qtyWrapper.appendChild(btnMinus);
         qtyWrapper.appendChild(inputQty);
@@ -276,13 +291,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Botones UI
-    // ✅ CORREGIDO: eliminado confirm() que bloqueaba en móviles
-    vaciarCarritoBtn && vaciarCarritoBtn.addEventListener('click', () => {
+    vaciarCarritoBtn && vaciarCarritoBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
       vaciarCarrito();
       showToast('Lista vaciada');
     });
 
-    enviarWhatsAppBtn && enviarWhatsAppBtn.addEventListener('click', () => {
+    enviarWhatsAppBtn && enviarWhatsAppBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
       if (!carrito.length) {
         showToast('La lista está vacía.');
         return;
@@ -314,14 +330,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const url = `https://wa.me/${WA_NUMBER.replace(/^\+/, '')}?text=${encodeURIComponent(mensaje)}`;
 
-      // ✅ CORREGIDO: enlace directo en lugar de window.open() que bloqueaba en móviles
-      const a = document.createElement('a');
-      a.href = url;
-      a.target = '_blank';
-      a.rel = 'noopener';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+      // ✅ CORREGIDO: window.location.href funciona en todos los móviles
+      window.location.href = url;
     });
 
     // Render inicial
