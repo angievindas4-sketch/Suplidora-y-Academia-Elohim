@@ -296,16 +296,12 @@ textarea {
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   overflow: hidden;
-  transform: translateY(12px);
-  opacity: 0;
-  pointer-events: none;
-  transition: transform .18s ease, opacity .18s ease;
+  display: none;
 }
 .panel-carrito[aria-hidden="false"] {
-  transform: translateY(0);
-  opacity: 1;
-  pointer-events: auto;
+  display: block;
 }
+
 .carrito-header {
   display:flex;align-items:center;justify-content:space-between;
   padding:12px 14px;background: linear-gradient(90deg,#ff99cc,#7fe3d3);
