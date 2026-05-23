@@ -190,7 +190,6 @@ document.addEventListener("DOMContentLoaded", () => {
     render();
     playPop();
     showToast(`✅ Agregado: ${nombre}`);
-    abrirPanel();
   };
 
   window.eliminarDelCarrito = function(index) {
