@@ -1,341 +1,215 @@
-// ==========================
-// Acordeón categorías
-// ==========================
-const acordeones = document.querySelectorAll(".acordeon");
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mueblería - Suplidora</title>
+    <link rel="stylesheet" href="css/style.muebleria.css">
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Suplidora de Uñas Elohim</h1>
+    </header>
 
-acordeones.forEach(btn => {
-    btn.addEventListener("click", function() {
-        const panel = this.nextElementSibling;
-        const openPanel = document.querySelector(".panel:not([style*='display: none'])");
+    <!-- Navegación -->
+    <nav>
+        <a href="suplidora.html">Regresar a las categorías del catálogo </a>
+    </nav>
 
-        if (openPanel && openPanel !== panel) {
-            openPanel.style.display = "none";
-        }
+    <!-- Título de la categoría -->
+    <div class="titulo-catalogo-container">
+        <h2 class="bienvenida">Mueblería</h2>
+    </div>
 
-        panel.style.display = (panel.style.display === "block") ? "none" : "block";
-    });
-});
+    <!-- Panel de productos -->
+    <div class="panel show">
+        <div class="productos-grid">
+            <!-- Producto 1 -->
+            <div class="producto">
+                <img src="img/MUEBLES/AC 6.jpg" alt="Butaca de Cuero " onclick="abrirModal(this.src)">
+                <p class="nombre-producto-texto">Butaca de Cuero</p>
+                <p class="precio-producto">₡65,000</p>
+                <button class="agregar-btn" onclick="agregarAlCarrito('Butaca de Cuero', 65000)">Agregar a lista</button>
+            </div>
 
-// ==========================
-// Modal toggle con zoom
-// ==========================
-const modal = document.getElementById('modalImagen');
-const modalImg = modal.querySelector('img'); 
-let ultimaSrc = "";
+            <!-- Producto 2 -->
+            <div class="producto">
+                <img src="img/MUEBLES/ACA CARACOL.jpg" alt="Butaca Caracol" onclick="abrirModal(this.src)">
+                <p class="nombre-producto-texto">Butaca Caracol</p>
+                <p class="precio-producto">₡85,000</p>
+                <button class="agregar-btn" onclick="agregarAlCarrito('Butaca Caracol', 85000)">Agregar a lista</button>
+            </div>
 
-function abrirModal(src) {
-    if (modal.classList.contains('show') && ultimaSrc === src) {
-        modal.classList.remove('show');
-        ultimaSrc = "";
-    } else {
-        modalImg.src = src;
-        modal.classList.add('show');
-        ultimaSrc = src;
-    }
-}
+            <!-- Producto 3 -->
+            <div class="producto">
+                <img src="img/MUEBLES/BUTACA 1.jpg" alt="Butaca Cuadros" onclick="abrirModal(this.src)">
+                <p class="nombre-producto-texto">Butaca Cuadros</p>
+                <p class="precio-producto">₡65,000</p>
+                <button class="agregar-btn" onclick="agregarAlCarrito('Butaca Cuadros', 65000)">Agregar a lista</button>
+            </div>
 
-modalImg.addEventListener('click', () => {
-    modal.classList.remove('show');
-    ultimaSrc = "";
-});
+            <!-- Producto 4 -->
+            <div class="producto">
+                <img src="img/MUEBLES/BUTACA 2.jpg" alt="Butaca Flores" onclick="abrirModal(this.src)">
+                <p class="nombre-producto-texto">Butaca Flores</p>
+                <p class="precio-producto">₡65,000</p>
+                <button class="agregar-btn" onclick="agregarAlCarrito('Butaca Flores', 65000)">Agregar a lista</button>
+            </div>
 
-// ==========================
-// script-suplidora.js
-// Acordeón + Modal + Carrito centralizado
-// ==========================
-document.addEventListener("DOMContentLoaded", () => {
+            <!-- Producto 5 -->
+            <div class="producto">
+                <img src="img/MUEBLES/13.jpg" alt="Mini Butaca Pedicura" onclick="abrirModal(this.src)">
+                <p class="nombre-producto-texto">Mini Butaca Pedicura</p>
+                <p class="precio-producto">₡20,000</p>
+                <button class="agregar-btn" onclick="agregarAlCarrito('Mini Butaca Pedicura', 20000)">Agregar a lista</button>
+            </div>
 
-  /* -----------------------
-     A C O R D E Ó N
-  ----------------------- */
-  const acordeones = document.querySelectorAll(".acordeon");
-  acordeones.forEach(btn => {
-    btn.addEventListener("click", function() {
-      const panel = this.nextElementSibling;
-      const openPanel = document.querySelector(".panel:not([style*='display: none'])");
-      if (openPanel && openPanel !== panel) openPanel.style.display = "none";
-      panel.style.display = (panel.style.display === "block") ? "none" : "block";
-    });
-  });
+            <!-- Producto 6 -->
+            <div class="producto">
+                <img src="img/MUEBLES/12.jpg" alt="Mini Butaca Pedicura 2" onclick="abrirModal(this.src)">
+                <p class="nombre-producto-texto">Mini Butaca Pedicura 2</p>
+                <p class="precio-producto">₡20,000</p>
+                <button class="agregar-btn" onclick="agregarAlCarrito('Mini Butaca Pedicura 2', 20000)">Agregar a lista</button>
+            </div>
+            <div class="producto">
+                <img src="img/MUEBLES/25.jpg" alt="Butacas VariadasS" onclick="abrirModal(this.src)">
+                <p class="nombre-producto-texto">Butacas Variadas</p>
+                <p class="precio-producto">₡65,000</p>
+                <button class="agregar-btn" onclick="agregarAlCarrito('Butacas Variadas', 65000)">Agregar a lista</button>
+            </div>
+            <div class="producto">
+                <img src="img/MUEBLES/DECANSA BRAZO ECO.jpg" alt="Descansa Brazo Eco" onclick="abrirModal(this.src)">
+                <p class="nombre-producto-texto">Descansa Brazo Eco</p>
+                <p class="precio-producto">₡3,000</p>
+                <button class="agregar-btn" onclick="agregarAlCarrito('Descansa Brazo Eco', 3000)">Agregar a lista</button>
+            </div>
+            <div class="producto">
+                <img src="img/MUEBLES/ESTACION PEDI GRANDE .jpg" alt="Estacion de Pedicura Grande" onclick="abrirModal(this.src)">
+                <p class="nombre-producto-texto">Estacion de Pedicura Grande</p>
+                <p class="precio-producto">₡180,000</p>
+                <button class="agregar-btn" onclick="agregarAlCarrito('Estacion de Pedicura Grande', 180000)">Agregar a lista</button>
+            </div>
+            <div class="producto">
+                <img src="img/MUEBLES/3.jpg" alt="Mesa Manicura Vidrio" onclick="abrirModal(this.src)">
+                <p class="nombre-producto-texto">Mesa Manicura Vidrio</p>
+                <p class="precio-producto">₡160,000</p>
+                <button class="agregar-btn" onclick="agregarAlCarrito('Mesa Manicura Vidrio', 160000)">Agregar a lista</button>
+            </div>
+            <div class="producto">
+                <img src="img/MUEBLES/23.jpg" alt="Recepción" onclick="abrirModal(this.src)">
+                <p class="nombre-producto-texto">Recepción</p>
+                <p class="precio-producto">₡160,000</p>
+                <button class="agregar-btn" onclick="agregarAlCarrito('Recepción', 160000)">Agregar a lista</button>
+            </div>
+            <div class="producto">
+                <img src="img/MUEBLES/21.jpg" alt="Torre Organizadora" onclick="abrirModal(this.src)">
+                <p class="nombre-producto-texto">Torre Organizadora</p>
+                <p class="precio-producto">₡55,000</p>
+                <button class="agregar-btn" onclick="agregarAlCarrito('Tool para Difuminado', 2500 )">Agregar a lista</button>
+            </div>
+            <div class="producto">
+                <img src="img/MUEBLES/22.jpg" alt="Sala de Espera" onclick="abrirModal(this.src)">
+                <p class="nombre-producto-texto">Sala de Espera</p>
+                <p class="precio-producto">₡165,000</p>
+                <button class="agregar-btn" onclick="agregarAlCarrito('Sala de Espera', 165000)">Agregar a lista</button>
+            </div>
+            <div class="producto">
+                <img src="img/MUEBLES/32.jpg" alt="Recepción" onclick="abrirModal(this.src)">
+                <p class="nombre-producto-texto">Esmaltero 60 x 60</p>
+                <p class="precio-producto">₡30,000</p>
+                <button class="agregar-btn" onclick="agregarAlCarrito('Esmaltero 60 x 60', 30000)">Agregar a lista</button>
+            </div>
+            <div class="producto">
+                <img src="img/MUEBLES/33.jpg" alt="Recepción" onclick="abrirModal(this.src)">
+                <p class="nombre-producto-texto">Esmaltero 60 x 30</p>
+                <p class="precio-producto">₡16,500</p>
+                <button class="agregar-btn" onclick="agregarAlCarrito('Esmaltero 60 x 30', 16500)">Agregar a lista</button>
+            </div>
+            <div class="producto">
+                <img src="img/MUEBLES/76.jpg" alt="Silla Manicurista" onclick="abrirModal(this.src)">
+                <p class="nombre-producto-texto">Silla Manicurista</p>
+                <p class="precio-producto">₡30,000</p>
+                <button class="agregar-btn" onclick="agregarAlCarrito('Silla Manicurista', 30000)">Agregar a lista</button>
+            </div>
+            <div class="producto">
+                <img src="img/MUEBLES/1.jpg" alt="Estacion de Pedicura Grande" onclick="abrirModal(this.src)">
+                <p class="nombre-producto-texto">Estacion de Pedicura Grande</p>
+                <p class="precio-producto">₡250,000</p>
+                <button class="agregar-btn" onclick="agregarAlCarrito('Estacion de Pedicura Grande', 250000)">Agregar a lista</button>
+            </div>
+            <div class="producto">
+                <img src="img/MUEBLES/COMBO 45 MIL.jpg" alt="Combo Pequeño" onclick="abrirModal(this.src)">
+                <p class="nombre-producto-texto">Combo Pequeño</p>
+                <p class="precio-producto">₡45,000</p>
+                <button class="agregar-btn" onclick="agregarAlCarrito('Combo Pequeño', 45000)">Agregar a lista</button>
+            </div>
+            <div class="producto">
+                <img src="img/MUEBLES/COMBO 50 MIL.jpg" alt="Combo Manicura" onclick="abrirModal(this.src)">
+                <p class="nombre-producto-texto">Combo Manicura</p>
+                <p class="precio-producto">₡50,000</p>
+                <button class="agregar-btn" onclick="agregarAlCarrito('Combo Manicura', 0000)">Agregar a lista</button>
+            </div>
+            
 
-  /* -----------------------
-     M O D A L  I M A G E N
-  ----------------------- */
-  const modalContainer = document.getElementById('modalImagen');
-  const modalImg = modalContainer ? modalContainer.querySelector('img') : null;
-  let ultimaSrc = "";
+        </div>
+    </div>
 
-  window.abrirModal = function(src) {
-    if (!modalContainer || !modalImg) return;
-    if (modalContainer.classList.contains('show') && ultimaSrc === src) {
-      modalContainer.classList.remove('show');
-      ultimaSrc = "";
-    } else {
-      modalImg.src = src;
-      modalContainer.classList.add('show');
-      ultimaSrc = src;
-    }
-  };
-  if (modalImg) {
-    modalImg.addEventListener('click', () => {
-      modalContainer.classList.remove('show');
-      ultimaSrc = "";
-    });
-  }
+    <!-- Modal de imagen -->
+<div id="modalImagen">
+    <img id="img-modal" src="" alt="Producto">
+</div>
+ <!-- ===== Carrito flotante (pegar antes del </body>) ===== -->
+<div class="carrito-flotante" id="carritoFlotante">
+  <button id="btnCarrito" class="btn-carrito" aria-label="Abrir carrito">🛒</button>
 
-  /* -----------------------
-     F O O T E R  A N I O
-  ----------------------- */
-  const anioEl = document.getElementById("anio");
-  if (anioEl) anioEl.textContent = new Date().getFullYear();
+  <div class="panel-carrito" id="panelCarrito" role="dialog" aria-hidden="true">
+    <div class="carrito-header">
+      <h3>Tu lista</h3>
+      <button id="cerrarCarrito" class="cerrar">✕</button>
+    </div>
 
-  /* -----------------------
-     C A R R I T O
-  ----------------------- */
-  const WA_NUMBER = "+50671256012";
-  const panelCarrito = document.getElementById('panelCarrito');
-  const btnCarrito = document.getElementById('btnCarrito');
-  const cerrarCarrito = document.getElementById('cerrarCarrito');
-  const listaCarritoEl = document.getElementById('listaCarrito');
-  const totalCarritoEl = document.getElementById('totalCarrito');
-  const vaciarCarritoBtn = document.getElementById('vaciarCarrito');
-  const enviarWhatsAppBtn = document.getElementById('enviarWhatsApp');
-  const clienteNombreInput = document.getElementById('clienteNombre');
-  const toast = document.getElementById('toastCarrito');
+    <div class="carrito-body">
+      <ul id="listaCarrito" class="lista-carrito"></ul>
 
-  if (!panelCarrito || !btnCarrito) {
-    initCartLogic(null);
-    return;
-  }
+     <div class="carrito-total">
+  <label for="clienteNombre">Nombre (opcional)</label>
+  <input id="clienteNombre" type="text" placeholder="Tu nombre" />
 
-  let panelOpen = false;
+  <label for="descripcionPedido">Descripción / Observaciones</label>
+  <textarea 
+    id="descripcionPedido" 
+    placeholder="Escribe aquí alguna observación sobre tu pedido..."
+    rows="3">
+  </textarea>
 
-  // ✅ CORREGIDO: solo usa aria-hidden, sin style.display para evitar conflictos en móvil
-  function setPanelOpen(open) {
-    panelOpen = !!open;
-    panelCarrito.setAttribute('aria-hidden', String(!open));
-  }
+  <p id="totalCarrito">Total: ₡0</p>
 
-  btnCarrito.addEventListener('click', (e) => {
-    e.stopPropagation();
-    setPanelOpen(!panelOpen);
-  });
+  <div class="carrito-actions">
+    <button id="vaciarCarrito" class="btn-accion">Vaciar</button>
+    <button id="enviarWhatsApp" class="btn-accion btn-enviar">
+      Enviar por WhatsApp
+    </button>
+  </div>
+</div>
 
-  cerrarCarrito && cerrarCarrito.addEventListener('click', (e) => {
-    e.stopPropagation();
-    setPanelOpen(false);
-  });
+      </div>
+    </div>
+  </div>
+</div>
 
-  // ✅ CORREGIDO: stopPropagation en el panel para que clics internos no cierren
-  panelCarrito.addEventListener('click', (e) => {
-    e.stopPropagation();
-  });
+<!-- Toast notificaciones -->
+<div id="toastCarrito" class="toast" aria-live="polite"></div>
 
-  document.addEventListener('click', () => {
-    if (panelOpen) setPanelOpen(false);
-  });
 
-  // Sonido pop con WebAudio
-  function playPop() {
-    try {
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      const o = ctx.createOscillator();
-      const g = ctx.createGain();
-      o.type = 'sine';
-      o.frequency.value = 880;
-      g.gain.value = 0.0001;
-      o.connect(g); g.connect(ctx.destination);
-      o.start();
-      g.gain.exponentialRampToValueAtTime(0.12, ctx.currentTime + 0.01);
-      g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.18);
-      o.stop(ctx.currentTime + 0.2);
-    } catch (e) { /* no audio */ }
-  }
+    <!-- Footer -->
+    <footer>
+      <p id="footer-text">By Freelancer Anyelith Nuñez Vindas &copy; <span id="anio"></span></p>
+    </footer>
 
-  // Toast notificaciones
-  function showToast(msg, ms = 1400) {
-    if (!toast) return;
-    toast.textContent = msg;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), ms);
-  }
+ 
 
-  initCartLogic(panelCarrito);
+<!-- Script global -->
+<script src="js/script-suplidora.js"></script>
 
-  function initCartLogic(uiPanel) {
-    let carrito = [];
-
-    try {
-      const saved = localStorage.getItem('carrito_suplidora');
-      carrito = saved ? JSON.parse(saved) : [];
-    } catch (e) { carrito = []; }
-
-    function guardar() {
-      try { localStorage.setItem('carrito_suplidora', JSON.stringify(carrito)); } catch(e){}
-    }
-
-    //------ Agregar producto con marca y estilo----//
-    window.agregarAlCarrito = function(nombre, precio, marca = '', estilo = '', qty = 1, abrir = true) {
-      if (!nombre || isNaN(Number(precio))) {
-        console.warn('agregarAlCarrito: nombre o precio inválido', nombre, precio);
-        return;
-      }
-      precio = Number(precio);
-      const exist = carrito.find(it => it.name === nombre && it.brand === marca && it.style === estilo);
-      if (exist) exist.qty += qty;
-      else carrito.push({ name: nombre, price: precio, brand: marca, style: estilo, qty: qty });
-      guardar();
-      if (uiPanel) render();
-      playPop();
-      showToast(`Agregado: ${nombre} (${marca || 'Marca no indicada'}, ${estilo || 'Estilo no indicado'})`);
-      if (abrir && uiPanel) { setPanelOpen(true); }
-    };
-
-    window.eliminarDelCarrito = function(index) {
-      if (index >= 0 && index < carrito.length) {
-        carrito.splice(index, 1);
-        guardar();
-        if (uiPanel) render();
-      }
-    };
-
-    window.cambiarCantidad = function(index, qty) {
-      qty = Number(qty) || 0;
-      if (index >= 0 && index < carrito.length) {
-        if (qty <= 0) carrito.splice(index,1);
-        else carrito[index].qty = qty;
-        guardar();
-        if (uiPanel) render();
-      }
-    };
-
-    window.vaciarCarrito = function() {
-      carrito = [];
-      guardar();
-      if (uiPanel) render();
-    };
-
-    window.obtenerCarrito = function() {
-      return carrito.slice();
-    };
-
-    // Render al DOM
-    function render() {
-      if (!listaCarritoEl) return;
-      listaCarritoEl.innerHTML = '';
-      let total = 0;
-      carrito.forEach((item, idx) => {
-        total += item.price * item.qty;
-        const li = document.createElement('li');
-        li.className = 'item-carrito';
-
-        const nombre = document.createElement('div');
-        nombre.className = 'nombre';
-        nombre.textContent = item.name;
-
-        const precio = document.createElement('div');
-        precio.className = 'precio';
-        precio.textContent = `₡${(item.price * item.qty).toLocaleString()}`;
-
-        const qtyWrapper = document.createElement('div');
-        qtyWrapper.className = 'qty-control';
-
-        const btnMinus = document.createElement('button');
-        btnMinus.className = 'qty-btn';
-        btnMinus.textContent = '-';
-        btnMinus.addEventListener('click', (e) => {
-          e.stopPropagation();
-          cambiarCantidad(idx, item.qty - 1);
-        });
-
-        const inputQty = document.createElement('input');
-        inputQty.className = 'qty-input';
-        inputQty.type = 'number';
-        inputQty.min = '1';
-        inputQty.value = item.qty;
-        inputQty.addEventListener('change', (e) => {
-          const v = parseInt(e.target.value) || 1;
-          cambiarCantidad(idx, v);
-        });
-
-        const btnPlus = document.createElement('button');
-        btnPlus.className = 'qty-btn';
-        btnPlus.textContent = '+';
-        btnPlus.addEventListener('click', (e) => {
-          e.stopPropagation();
-          cambiarCantidad(idx, item.qty + 1);
-        });
-
-        const btnRemove = document.createElement('button');
-        btnRemove.className = 'qty-btn';
-        btnRemove.textContent = 'X';
-        btnRemove.title = 'Eliminar';
-        btnRemove.addEventListener('click', (e) => {
-          e.stopPropagation();
-          eliminarDelCarrito(idx);
-        });
-
-        qtyWrapper.appendChild(btnMinus);
-        qtyWrapper.appendChild(inputQty);
-        qtyWrapper.appendChild(btnPlus);
-        qtyWrapper.appendChild(btnRemove);
-
-        li.appendChild(nombre);
-        li.appendChild(qtyWrapper);
-        li.appendChild(precio);
-
-        listaCarritoEl.appendChild(li);
-      });
-
-      if (totalCarritoEl) totalCarritoEl.textContent = `Total: ₡${total.toLocaleString()}`;
-    }
-
-    // Botones UI
-    vaciarCarritoBtn && vaciarCarritoBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      vaciarCarrito();
-      showToast('Lista vaciada');
-    });
-
-    enviarWhatsAppBtn && enviarWhatsAppBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (!carrito.length) {
-        showToast('La lista está vacía.');
-        return;
-      }
-
-      const nombreCliente = clienteNombreInput
-        ? (clienteNombreInput.value.trim() || 'No indicado')
-        : 'No indicado';
-
-      const descripcion = document.getElementById('descripcionPedido')
-        ? document.getElementById('descripcionPedido').value.trim()
-        : '';
-
-      let mensaje = `Hola, soy ${nombreCliente}.\nDeseo comprar:\n\n`;
-      let total = 0;
-
-      carrito.forEach(it => {
-        mensaje += `• ${it.name} x${it.qty} - ₡${(it.price * it.qty).toLocaleString()}\n`;
-        total += it.price * it.qty;
-      });
-
-      mensaje += `\nTotal: ₡${total.toLocaleString()}\n`;
-
-      if (descripcion !== '') {
-        mensaje += `\n📝 Observaciones:\n${descripcion}\n`;
-      }
-
-      mensaje += `\nGracias.`;
-
-      const url = `https://wa.me/${WA_NUMBER.replace(/^\+/, '')}?text=${encodeURIComponent(mensaje)}`;
-
-      // ✅ CORREGIDO: window.location.href funciona en todos los móviles
-      window.location.href = url;
-    });
-
-    // Render inicial
-    render();
-  } // fin initCartLogic
-
-}); // fin DOMContentLoaded
+</body>
+</html>
