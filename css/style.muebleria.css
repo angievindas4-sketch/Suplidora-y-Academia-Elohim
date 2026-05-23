@@ -74,7 +74,7 @@ nav a:hover {
 
 .productos-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 productos por fila */
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
 }
 
@@ -124,6 +124,15 @@ nav a:hover {
 
 .agregar-btn:hover {
     background-color: #ff66aa;
+}
+
+textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  resize: none;
+  font-family: inherit;
 }
 
 /* Modal de imagen */
@@ -271,12 +280,13 @@ textarea {
 .enviar-btn:hover {
     background-color: #ff1a75;
 }
-/* Total en negrita y más grande */
+
 #totalCarrito {
   font-weight: bold;
   font-size: 1.1rem;
   color: #090909;
 }
+
 /* ====== Estilos carrito flotante ====== */
 .carrito-flotante { position: fixed; right: 20px; bottom: 20px; z-index: 1200; font-family: inherit; }
 .btn-carrito {
@@ -286,6 +296,8 @@ textarea {
   box-shadow:0 8px 18px rgba(0,0,0,0.2);
   display:flex;align-items:center;justify-content:center;
 }
+
+/* ✅ CORREGIDO: display:none simple, sin opacity ni pointer-events */
 .panel-carrito {
   position: absolute;
   bottom: 84px;
@@ -296,16 +308,9 @@ textarea {
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   overflow: hidden;
-  transform: translateY(12px);
-  opacity: 0;
-  pointer-events: none;
-  transition: transform .18s ease, opacity .18s ease;
+  display: none;
 }
-.panel-carrito[aria-hidden="false"] {
-  transform: translateY(0);
-  opacity: 1;
-  pointer-events: auto;
-}
+
 .carrito-header {
   display:flex;align-items:center;justify-content:space-between;
   padding:12px 14px;background: linear-gradient(90deg,#ff99cc,#7fe3d3);
