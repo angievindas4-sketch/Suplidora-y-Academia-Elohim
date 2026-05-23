@@ -110,10 +110,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let panelOpen = false;
 
-  // ✅ CORREGIDO: solo usa aria-hidden, sin style.display para evitar conflictos en móvil
+  // ✅ CORREGIDO: usa aria-hidden Y display juntos
   function setPanelOpen(open) {
     panelOpen = !!open;
     panelCarrito.setAttribute('aria-hidden', String(!open));
+    panelCarrito.style.display = open ? 'block' : 'none';
   }
 
   btnCarrito.addEventListener('click', (e) => {
@@ -126,7 +127,6 @@ document.addEventListener("DOMContentLoaded", () => {
     setPanelOpen(false);
   });
 
-  // ✅ CORREGIDO: stopPropagation en el panel para que clics internos no cierren
   panelCarrito.addEventListener('click', (e) => {
     e.stopPropagation();
   });
@@ -329,9 +329,7 @@ document.addEventListener("DOMContentLoaded", () => {
       mensaje += `\nGracias.`;
 
       const url = `https://wa.me/${WA_NUMBER.replace(/^\+/, '')}?text=${encodeURIComponent(mensaje)}`;
-
-      // ✅ CORREGIDO: window.location.href funciona en todos los móviles
-      window.location.href = url;
+      window.open(url, '_blank');
     });
 
     // Render inicial
