@@ -377,7 +377,8 @@ textarea {
   font-size: 1.1rem;
   color: #090909;
 }
-/* ====== Estilos carrito flotante ====== */
+
+/* ====== Estilos carrito flotante (Igual al de Geles) ====== */
 .carrito-flotante { position: fixed; right: 20px; bottom: 20px; z-index: 1200; font-family: inherit; }
 .btn-carrito {
   width:64px;height:64px;border-radius:50%;
@@ -396,15 +397,10 @@ textarea {
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   overflow: hidden;
-  transform: translateY(12px);
-  opacity: 0;
-  pointer-events: none;
-  transition: transform .18s ease, opacity .18s ease;
+  display: none;
 }
 .panel-carrito[aria-hidden="false"] {
-  transform: translateY(0);
-  opacity: 1;
-  pointer-events: auto;
+  display: block;
 }
 .carrito-header {
   display:flex;align-items:center;justify-content:space-between;
