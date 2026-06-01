@@ -7,94 +7,69 @@
     <link rel="stylesheet" href="css/style.glowspa.css">
 </head>
 <body>
-    <!-- Header -->
     <header>
         <h1>Suplidora de Uñas Elohim</h1>
     </header>
 
-    <!-- Navegación -->
     <nav>
-          <a href="suplidora.html">Regresar a las categorías del catálogo </a>
+         <a href="suplidora.html">Regresar a las categorías del catálogo </a>
     </nav>
 
-    <!-- Título de la categoría -->
     <div class="titulo-catalogo-container">
         <h2 class="bienvenida">Glow</h2>
     </div>
 
-    <!-- Panel de productos -->
     <div class="panel show">
         <div class="productos-grid">
+            
             <div class="producto">
-                            <img src="" alt="2 EN 1 GEL BUILDER" onclick="abrirModal(this.src)">
-                            <p class="nombre-producto-texto"></p>
-                            <p class="precio-producto">₡</p>
-                            <button class="agregar-btn" onclick="agregarAlCarrito('', )">Agregar a lista</button>
-                        </div>
-                      
-                        <!-- Agrega más productos aquí -->
+    <img src="ruta-de-tu-imagen.jpg" alt="Jabón Líquido" onclick="abrirModal(this.src)">
+    <p class="nombre-producto-texto">Jabón Líquido Antimicótico</p>
+    <p class="precio-producto">₡5,500</p>
+    
+    <button class="agregar-btn" onclick="agregarAlCarrito('Jabón Líquido', 5500)">Agregar a lista</button>
+    
+    <a href="JabonLiquido.html" style="display: block; margin-top: 10px; color: #ff66aa; text-decoration: underline; font-size: 0.9em; font-weight: bold;">
+        Ver Ficha Técnica
+    </a>
+</div>
+            </div>
+    </div>
+
+    <div id="modalImagen">
+        <img id="img-modal" src="" alt="Producto">
+    </div>
+
+    <div class="carrito-flotante" id="carritoFlotante">
+        <button id="btnCarrito" class="btn-carrito" aria-label="Abrir carrito">🛒</button>
+        <div class="panel-carrito" id="panelCarrito" role="dialog" aria-hidden="true">
+            <div class="carrito-header">
+                <h3>Tu lista</h3>
+                <button id="cerrarCarrito" class="cerrar">✕</button>
+            </div>
+            <div class="carrito-body">
+                <ul id="listaCarrito" class="lista-carrito"></ul>
+                <div class="carrito-total">
+                    <label for="clienteNombre">Nombre (opcional)</label>
+                    <input id="clienteNombre" type="text" placeholder="Tu nombre" />
+                    <label for="descripcionPedido">Descripción / Observaciones</label>
+                    <textarea id="descripcionPedido" rows="3"></textarea>
+                    <p id="totalCarrito">Total: ₡0</p>
+                    <div class="carrito-actions">
+                        <button id="vaciarCarrito" class="btn-accion">Vaciar</button>
+                        <button id="enviarWhatsApp" class="btn-accion btn-enviar">Enviar por WhatsApp</button>
                     </div>
                 </div>
             </div>
         </div>
-            </p>
-        </div>
     </div>
 
-    <!-- Modal de imagen -->
-<div id="modalImagen">
-    <img id="img-modal" src="" alt="Producto">
-</div>
- <!-- ===== Carrito flotante (pegar antes del </body>) ===== -->
-<div class="carrito-flotante" id="carritoFlotante">
-  <button id="btnCarrito" class="btn-carrito" aria-label="Abrir carrito">🛒</button>
+    <div id="toastCarrito" class="toast" aria-live="polite"></div>
 
-  <div class="panel-carrito" id="panelCarrito" role="dialog" aria-hidden="true">
-    <div class="carrito-header">
-      <h3>Tu lista</h3>
-      <button id="cerrarCarrito" class="cerrar">✕</button>
-    </div>
-
-    <div class="carrito-body">
-      <ul id="listaCarrito" class="lista-carrito"></ul>
-
-     <div class="carrito-total">
-  <label for="clienteNombre">Nombre (opcional)</label>
-  <input id="clienteNombre" type="text" placeholder="Tu nombre" />
-
-  <label for="descripcionPedido">Descripción / Observaciones</label>
-  <textarea 
-    id="descripcionPedido" 
-    placeholder="Escribe aquí alguna observación sobre tu pedido..."
-    rows="3">
-  </textarea>
-
-  <p id="totalCarrito">Total: ₡0</p>
-
-  <div class="carrito-actions">
-    <button id="vaciarCarrito" class="btn-accion">Vaciar</button>
-    <button id="enviarWhatsApp" class="btn-accion btn-enviar">
-      Enviar por WhatsApp
-    </button>
-  </div>
-</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Toast notificaciones -->
-<div id="toastCarrito" class="toast" aria-live="polite"></div>
-
-    <!-- Footer -->
     <footer>
-      <p id="footer-text">By Freelancer Anyelith Nuñez Vindas &copy; <span id="anio"></span></p> 
+        <p id="footer-text">By Freelancer Anyelith Nuñez Vindas &copy; <span id="anio"></span></p> 
     </footer>
 
-
-
-<!-- Script global -->
-<script src="js/script-suplidora.js"></script>
-
+    <script src="js/script-suplidora.js"></script>
 </body>
 </html>

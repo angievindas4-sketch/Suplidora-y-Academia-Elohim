@@ -192,92 +192,6 @@ textarea {
     z-index: 1000;
 }
 
-.btn-carrito {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: #ff99cc;
-    border: none;
-    color: white;
-    font-size: 28px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: 0.3s;
-}
-
-.btn-carrito:hover {
-    background: #ff66aa;
-}
-
-.contenido-carrito {
-    display: none;
-    position: absolute;
-    bottom: 70px;
-    right: 0;
-    width: 300px;
-    max-height: 400px;
-    overflow-y: auto;
-    background: #92f5f8;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
-    color: #333;
-}
-
-.contenido-carrito.abierto {
-    display: block;
-}
-
-.contenido-carrito ul {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 10px 0;
-}
-
-.nombre-producto {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: bold;
-}
-
-.eliminar-btn {
-    background-color: #ff66aa;
-    border: none;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 2px 6px;
-    border-radius: 50%;
-    font-size: 0.8rem;
-}
-
-.eliminar-btn:hover {
-    background-color: #ff3388;
-}
-
-.enviar-btn {
-    background-color: #ff3388;
-    color: white;
-    border: none;
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.enviar-btn:hover {
-    background-color: #ff1a75;
-}
-/* Total en negrita y más grande */
-#totalCarrito {
-  font-weight: bold;
-  font-size: 1.1rem;
-  color: #090909;
-}
 /* ====== Estilos carrito flotante ====== */
 .carrito-flotante { position: fixed; right: 20px; bottom: 20px; z-index: 1200; font-family: inherit; }
 .btn-carrito {
@@ -364,4 +278,55 @@ footer {
     header h1 {
         font-size: 32px;
     }
+}
+
+/* ===================================
+   Estilos para Fichas Técnicas (NUEVO)
+=================================== */
+
+.ficha-tecnica-container {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    max-width: 700px;
+    margin: 40px auto;
+    border: 1px solid #eee;
+}
+
+.ficha-tecnica-container h2 {
+    color: #ff99cc;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #92f5f8;
+    padding-bottom: 10px;
+}
+
+.ficha-tecnica-container h4 {
+    color: #67c9cc;
+    font-size: 1.2rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.ficha-tecnica-container p, 
+.ficha-tecnica-container li {
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.7;
+}
+
+.ficha-tecnica-container ul {
+    background: #fff0f5;
+    padding: 15px 15px 15px 35px;
+    border-radius: 10px;
+}
+
+.ficha-footer {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #999;
+    font-style: italic;
 }
